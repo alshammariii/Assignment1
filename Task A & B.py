@@ -39,3 +39,23 @@ def merkle_root(transactions):
         level = [sha(level[i] + level[i + 1]) for i in range(0, len(level), 2)]
     return level[0]
 
+# TASK A: REGISTER INTEGRITY PROFILE
+
+print("\nTASK A: REGISTER INTEGRITY PROFILE")
+
+# A1. Total number of artwork records
+print("\nA1. Total artwork records:")
+print(len(artwork_records))
+
+
+
+# A2. Compare the top-level keys in all records
+print("\nA2. Top-level key differences:")
+
+key_patterns = Counter(
+    tuple(sorted(record.keys()))
+    for record in artwork_records
+)
+
+# Find the most common set of keys
+standard_keys = set(key_patterns.most_common(1)[0][0])
