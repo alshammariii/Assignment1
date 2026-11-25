@@ -59,3 +59,29 @@ key_patterns = Counter(
 
 # Find the most common set of keys
 standard_keys = set(key_patterns.most_common(1)[0][0])
+
+
+missing_count = 0
+extra_count = 0
+
+for index, record in enumerate(artwork_records, start=1):
+
+    record_keys = set(record.keys())
+
+    missing = standard_keys-record_keys
+    extra = record_keys-standard_keys
+
+    if missing:
+        missing_count += 1
+        print("\nRecord:", index)
+        print("Asset Reference:", record.get("Asset Reference"))
+        print("Missing fields:", missing)
+
+    if extra:
+        extra_count += 1
+        print("\nRecord:", index)
+        print("Asset Reference:", record.get("Asset Reference"))
+        print("Extra fields:", extra)
+
+print("\nRecords with missing fields:", missing_count)
+print("Records with extra fields:", extra_count)
