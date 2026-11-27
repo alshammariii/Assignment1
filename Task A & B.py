@@ -85,3 +85,16 @@ for index, record in enumerate(artwork_records, start=1):
 
 print("\nRecords with missing fields:", missing_count)
 print("Records with extra fields:", extra_count)
+
+# A3. Compare nested Valuation keys
+print("\nA3. Valuation key differences:")
+
+valuation_patterns = Counter(
+    tuple(sorted(record.get("Valuation", {}).keys()))
+    for record in artwork_records
+)
+
+# Find the most common Valuation key structure
+standard_valuation_keys = set(
+    valuation_patterns.most_common(1)[0][0]
+)
