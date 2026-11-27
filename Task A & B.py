@@ -98,3 +98,24 @@ valuation_patterns = Counter(
 standard_valuation_keys = set(
     valuation_patterns.most_common(1)[0][0]
 )
+
+valuation_difference_count = 0
+
+for index, record in enumerate(artwork_records, start=1):
+
+    valuation = record.get("Valuation", {})
+    valuation_keys = set(valuation.keys())
+
+    missing = standard_valuation_keys-valuation_keys
+    extra = valuation_keys-standard_valuation_keys
+
+    if missing or extra:
+        valuation_difference_count += 1
+
+        print("\nRecord:", index)
+        print("Asset Reference:", record.get("Asset Reference"))
+        print("Missing Valuation fields:", missing)
+        print("Extra Valuation fields:", extra)
+
+print("\nRecords with different Valuation keys:",
+      valuation_difference_count)
